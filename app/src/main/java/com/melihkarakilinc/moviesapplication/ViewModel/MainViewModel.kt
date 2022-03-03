@@ -3,6 +3,7 @@ package com.melihkarakilinc.moviesapplication.ViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.melihkarakilinc.moviesapplication.APIState
+import com.melihkarakilinc.moviesapplication.Category
 import com.melihkarakilinc.moviesapplication.MovieModel
 import com.melihkarakilinc.moviesapplication.Repository.Repository
 import com.melihkarakilinc.moviesapplication.Status
@@ -25,16 +26,32 @@ class MainViewModel : ViewModel() {
         )
     )
 
+    val categoryState = MutableStateFlow(
+        APIState(
+            Status.LOADING,
+            Category(), ""
+        )
+    )
+
     fun getMovie(with_genres: Int) {
-
         movieState.value = APIState.loading()
-
         viewModelScope.launch {
             repository.getMovie(with_genres)
                 .catch {
                     movieState.value =
                         APIState.error(it.message.toString())
                 }.collect { movieState.value = APIState.success(it.data) }
+        }
+    }
+
+    fun getCategory() {
+        categoryState.value = APIState.loading()
+        viewModelScope.launch {
+            repository.getCategory()
+                .catch {
+                    categoryState.value =
+                        APIState.error(it.message.toString())
+                }.collect { categoryState.value = APIState.success(it.data) }
         }
     }
 }

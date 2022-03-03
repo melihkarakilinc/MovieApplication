@@ -1,10 +1,10 @@
 package com.melihkarakilinc.moviesapplication
 
 data class Category(
-    val genres: List<Genre>
+    val genres: List<Genre>?=null
 )
 
 data class Genre(
-    val id: Int,
-    val name: String
+    val id: Int?=null,
+    val name: String?=null
 )

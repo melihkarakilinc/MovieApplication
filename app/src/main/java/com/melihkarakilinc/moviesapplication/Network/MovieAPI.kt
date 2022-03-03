@@ -12,7 +12,7 @@ interface MovieAPI {
     suspend fun getCategory(
         @Query("api_key") api_key: String = ApiUrl.API_KEY,
         @Query("language") page:String="en-US"
-    ): Response<Category>
+    ): Category
 
     @GET(ApiUrl.MOVIE_URL)
     suspend fun getMovie(

@@ -1,5 +1,6 @@
 package com.melihkarakilinc.moviesapplication.View
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,7 +16,8 @@ import com.melihkarakilinc.moviesapplication.databinding.FragmentAllCategoryBind
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class AllCategoryFragment : Fragment() {
+class AllCategoryFragment constructor(text:String,context: Context) : Fragment() {
+    var text:String=text
     private lateinit var viewModel: MainViewModel
     private var _binding: FragmentAllCategoryBinding? = null
     private val binding get() = _binding!!
@@ -29,8 +31,10 @@ class AllCategoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.text.text=text
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        viewModel.getMovie(28)
+        //viewModel.getMovie(28)
         lifecycleScope.launch {
             viewModel.movieState.collect {
                 when (it.status) {
@@ -38,11 +42,11 @@ class AllCategoryFragment : Fragment() {
                         //Show Progressbar
                     }
                     Status.SUCCESS -> {
-                        Toast.makeText(
-                            requireContext(),
-                            it.data?.results.toString(),
-                            Toast.LENGTH_LONG
-                        ).show()
+//                        Toast.makeText(
+//                            requireContext(),
+//                            it.data?.results.toString(),
+//                            Toast.LENGTH_LONG
+//                        ).show()
                     }
                     else -> {
                         Log.e("MainActivity", it.message.toString())
@@ -50,6 +54,5 @@ class AllCategoryFragment : Fragment() {
                 }
             }
         }
-
     }
 }
