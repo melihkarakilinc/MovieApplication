@@ -5,8 +5,12 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.transform.CircleCropTransformation
+import com.melihkarakilinc.moviesapplication.R
 import com.melihkarakilinc.moviesapplication.Result
 import com.melihkarakilinc.moviesapplication.Utils.ItemListener
+import com.melihkarakilinc.moviesapplication.Utils.Util
 import com.melihkarakilinc.moviesapplication.databinding.ItemLayoutBinding
 
 class MoviesAdapter() : RecyclerView.Adapter<ViewHolder>() {
@@ -31,6 +35,8 @@ class MoviesAdapter() : RecyclerView.Adapter<ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val movie = movies[position]
         holder.binding.txtMovieTitle.text = movie.title
+        val util=Util()
+        util.imageLoader(movie.poster_path.toString(),holder.binding.imgPoster)
         holder.binding.cardView.setOnClickListener {
             itemListener.OnItemSelect(movie)
         }
