@@ -19,6 +19,9 @@ import com.melihkarakilinc.moviesapplication.ViewModel.MainViewModel
 import com.melihkarakilinc.moviesapplication.databinding.FragmentAllCategoryBinding
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import android.R
+import android.content.Intent
+
 
 class AllCategoryFragment constructor(genre: Genre, context: Context) : Fragment(), ItemListener {
 
@@ -69,5 +72,8 @@ class AllCategoryFragment constructor(genre: Genre, context: Context) : Fragment
 
     override fun OnItemSelect(result: Result) {
         Toast.makeText(requireContext(), "Click", Toast.LENGTH_SHORT).show()
+        val intent = Intent(requireActivity(), DetailActivity::class.java)
+        intent.putExtra("movieName",result.title )
+        startActivity(intent)
     }
 }

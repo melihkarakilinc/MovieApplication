@@ -1,38 +1,33 @@
 package com.melihkarakilinc.moviesapplication.View
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.source.hls.HlsMediaSource
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.melihkarakilinc.moviesapplication.Utils.ApiUrl
-import com.melihkarakilinc.moviesapplication.databinding.FragmentDetailBinding
+import com.melihkarakilinc.moviesapplication.databinding.ActivityDetailBinding
 
-class DetailFragment : Fragment() {
+class DetailActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityDetailBinding
     private var exoPlayer: ExoPlayer? = null
     private var playbackPosition = 0L
     private var playWhenReady = true
-    private var _binding: FragmentDetailBinding? = null
-    private val binding get() = _binding!!
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentDetailBinding.inflate(inflater, container, false)
-        return binding.root
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        preparePlayer()
+        val ss: String = intent.getStringExtra("movieName").toString()
+        Toast.makeText(this, ss, Toast.LENGTH_LONG).show()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        preparePlayer()
-    }
     private fun preparePlayer() {
-        exoPlayer = ExoPlayer.Builder(requireContext()).build()
+        exoPlayer = ExoPlayer.Builder(this).build()
         exoPlayer?.playWhenReady = true
         binding.playerView.player = exoPlayer
         val defaultHttpDataSourceFactory = DefaultHttpDataSource.Factory()
@@ -55,19 +50,9 @@ class DetailFragment : Fragment() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        preparePlayer()
-    }
-
     override fun onStop() {
         super.onStop()
         releasePlayer()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        preparePlayer()
     }
 
     override fun onPause() {
