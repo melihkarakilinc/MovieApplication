@@ -6,4 +6,5 @@ object ApiUrl {
     const val CATEGORY_URL="3/genre/movie/list"
     const val MOVIE_URL = "3/discover/movie"
     const val POSTER_PATH="https://image.tmdb.org/t/p/original/"
+    const val URL="https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8"
 }

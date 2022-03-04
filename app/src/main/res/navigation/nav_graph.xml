@@ -9,7 +9,11 @@
         android:id="@+id/allCategoryFragment"
         android:name="com.melihkarakilinc.moviesapplication.View.AllCategoryFragment"
         android:label="fragment_all_category"
-        tools:layout="@layout/fragment_all_category" />
+        tools:layout="@layout/fragment_all_category" >
+        <action
+            android:id="@+id/action_allCategoryFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.melihkarakilinc.moviesapplication.View.DetailFragment"
