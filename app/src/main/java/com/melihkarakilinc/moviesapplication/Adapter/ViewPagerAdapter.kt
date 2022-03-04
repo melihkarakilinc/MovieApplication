@@ -4,13 +4,15 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.melihkarakilinc.moviesapplication.Category
+import com.melihkarakilinc.moviesapplication.Genre
 import com.melihkarakilinc.moviesapplication.View.AllCategoryFragment
 
 class ViewPagerAdapter(
     fm: FragmentManager,
     slideCount: Int,
     context: Context,
-    data: ArrayList<String>
+    data: Category
 ) : FragmentPagerAdapter(fm) {
     val fm = fm
     val slideCount = slideCount
@@ -23,6 +25,6 @@ class ViewPagerAdapter(
     }
 
     override fun getItem(position: Int): Fragment {
-        return AllCategoryFragment(data[position], context)
+        return AllCategoryFragment(data.genres?.get(position)!!, context)
     }
 }

@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.melihkarakilinc.moviesapplication.Adapter.ViewPagerAdapter
-import com.melihkarakilinc.moviesapplication.Category
 import com.melihkarakilinc.moviesapplication.Status
 import com.melihkarakilinc.moviesapplication.ViewModel.MainViewModel
 import com.melihkarakilinc.moviesapplication.databinding.ActivityMainBinding
@@ -18,7 +17,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
     private var adapter: ViewPagerAdapter? = null
-    private var genreName=ArrayList<String>()
+    private var genreName = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,12 +37,12 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     Status.SUCCESS -> {
-                        it.data?.let { data -> addArray(data) }
+                        Log.e("MainActivity", "SUCCESS{${it.data!!.genres}}")
                         adapter = ViewPagerAdapter(
                             supportFragmentManager,
-                            genreName.size,
+                            it.data!!.genres!!.size,
                             this@MainActivity,
-                            genreName
+                            it.data!!
                         )
                         binding.viewPager.adapter = adapter
                     }
@@ -53,11 +52,6 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
-        }
-    }
-    private fun addArray(category: Category){
-        category.genres?.forEach{ name ->
-            genreName.add(name.toString())
         }
     }
 }

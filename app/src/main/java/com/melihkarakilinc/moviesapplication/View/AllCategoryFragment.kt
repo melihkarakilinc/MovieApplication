@@ -10,15 +10,15 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
+import com.melihkarakilinc.moviesapplication.Genre
 import com.melihkarakilinc.moviesapplication.Status
 import com.melihkarakilinc.moviesapplication.ViewModel.MainViewModel
 import com.melihkarakilinc.moviesapplication.databinding.FragmentAllCategoryBinding
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class AllCategoryFragment constructor(text: String, context: Context) : Fragment() {
-    var text: String = text
+class AllCategoryFragment constructor(text: Genre, context: Context) : Fragment() {
+    var genre: Genre = text
     private lateinit var viewModel: MainViewModel
     private var _binding: FragmentAllCategoryBinding? = null
     private val binding get() = _binding!!
@@ -33,9 +33,9 @@ class AllCategoryFragment constructor(text: String, context: Context) : Fragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.text.text = text
+        binding.text.text = genre.id.toString()
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        //viewModel.getMovie(28)
+        viewModel.getMovie(genre.id!!)
         lifecycleScope.launch {
             viewModel.movieState.collect {
                 when (it.status) {
@@ -43,11 +43,11 @@ class AllCategoryFragment constructor(text: String, context: Context) : Fragment
                         //Show Progressbar
                     }
                     Status.SUCCESS -> {
-//                        Toast.makeText(
-//                            requireContext(),
-//                            it.data?.results.toString(),
-//                            Toast.LENGTH_LONG
-//                        ).show()
+                        Toast.makeText(
+                            requireContext(),
+                            it.data?.results.toString(),
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                     else -> {
                         Log.e("MainActivity", it.message.toString())
