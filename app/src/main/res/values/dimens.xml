@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Action Bar-->
+    <dimen name="action_bar_txt_size">20sp</dimen>
+    <dimen name="action_bar_padding">5dp</dimen>
+    <dimen name="action_bar_margin">10dp</dimen>
+
+    <!--Detail Activity-->
+    <dimen name="detail_txt_size">30sp</dimen>
+
+    <!--Item Layout-->
+    <dimen name="item_layout_margin">10dp</dimen>
+    <dimen name="item_layout_cardCornerRadius">5dp</dimen>
+    <dimen name="item_layout_cardCornerElevation">1dp</dimen>
+    <dimen name="item_layout_txt_margin">3dp</dimen>
+    <dimen name="item_layout_txt_padding">5dp</dimen>
+    <dimen name="item_layout_txt_size">12sp</dimen>
+</resources>

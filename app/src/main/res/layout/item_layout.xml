@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    app:cardCornerRadius="5dp"
-    app:cardElevation="1dp">
+    android:layout_margin="@dimen/item_layout_margin"
+    app:cardCornerRadius="@dimen/item_layout_cardCornerRadius"
+    app:cardElevation="@dimen/item_layout_cardCornerElevation">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#3E3C3C"
+        android:background="@color/cardViewBg"
         android:orientation="vertical">
 
         <ImageView
@@ -28,16 +27,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="3dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginEnd="3dp"
-            android:layout_marginBottom="3dp"
+            android:layout_margin="@dimen/item_layout_txt_margin"
             android:foregroundGravity="center"
             android:gravity="center"
             android:maxLines="1"
-            android:padding="5dp"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp" />
+            android:padding="@dimen/item_layout_txt_padding"
+            android:textColor="@color/white"
+            android:textSize="@dimen/item_layout_txt_size" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

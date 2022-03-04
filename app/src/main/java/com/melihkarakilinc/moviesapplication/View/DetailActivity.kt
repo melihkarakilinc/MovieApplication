@@ -1,7 +1,6 @@
 package com.melihkarakilinc.moviesapplication.View
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
@@ -23,7 +22,7 @@ class DetailActivity : AppCompatActivity() {
         setContentView(binding.root)
         preparePlayer()
         val ss: String = intent.getStringExtra("movieName").toString()
-        Toast.makeText(this, ss, Toast.LENGTH_LONG).show()
+        binding.txtPlayingMovie.text = ss
     }
 
     private fun preparePlayer() {
@@ -32,7 +31,7 @@ class DetailActivity : AppCompatActivity() {
         binding.playerView.player = exoPlayer
         val defaultHttpDataSourceFactory = DefaultHttpDataSource.Factory()
         val mediaItem =
-            MediaItem.fromUri(ApiUrl.URL)
+            MediaItem.fromUri(ApiUrl.STREAM_URL)
         val mediaSource =
             HlsMediaSource.Factory(defaultHttpDataSourceFactory).createMediaSource(mediaItem)
         exoPlayer?.setMediaSource(mediaSource)

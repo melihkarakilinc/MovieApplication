@@ -24,6 +24,13 @@
         argType:use_controller="true"
         argType:use_sensor_rotation="true">
 
+        <TextView
+            android:id="@+id/txtPlayingMovie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/detail_txt_size" />
+
     </com.google.android.exoplayer2.ui.StyledPlayerView>
 
 </FrameLayout>

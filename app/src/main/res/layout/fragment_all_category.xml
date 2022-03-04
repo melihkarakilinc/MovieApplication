@@ -5,10 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="#000000"
+    android:background="@color/black"
     app:layout_anchorGravity="center"
     tools:context=".View.AllCategoryFragment">
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
@@ -16,7 +15,6 @@
         android:layout_height="match_parent"
         android:backgroundTint="@null"
         android:foregroundGravity="center"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

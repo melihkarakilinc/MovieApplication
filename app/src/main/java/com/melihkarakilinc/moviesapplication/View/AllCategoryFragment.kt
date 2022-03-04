@@ -1,11 +1,11 @@
 package com.melihkarakilinc.moviesapplication.View
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -19,13 +19,11 @@ import com.melihkarakilinc.moviesapplication.ViewModel.MainViewModel
 import com.melihkarakilinc.moviesapplication.databinding.FragmentAllCategoryBinding
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import android.R
-import android.content.Intent
 
 
-class AllCategoryFragment constructor(genre: Genre, context: Context) : Fragment(), ItemListener {
+class AllCategoryFragment constructor(private var genre: Genre, context: Context) : Fragment(),
+    ItemListener {
 
-    private var genre: Genre = genre
     private lateinit var viewModel: MainViewModel
     private var _binding: FragmentAllCategoryBinding? = null
     private val binding get() = _binding!!
@@ -36,7 +34,7 @@ class AllCategoryFragment constructor(genre: Genre, context: Context) : Fragment
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentAllCategoryBinding.inflate(inflater, container, false)
         adapter.context = requireContext()
         return binding.root
@@ -71,7 +69,6 @@ class AllCategoryFragment constructor(genre: Genre, context: Context) : Fragment
     }
 
     override fun OnItemSelect(result: Result) {
-        Toast.makeText(requireContext(), "Click", Toast.LENGTH_SHORT).show()
         val intent = Intent(requireActivity(), DetailActivity::class.java)
         intent.putExtra("movieName",result.title )
         startActivity(intent)

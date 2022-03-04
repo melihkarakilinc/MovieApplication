@@ -1,9 +1,8 @@
 package com.melihkarakilinc.moviesapplication.Network
 
-import com.melihkarakilinc.moviesapplication.Utils.ApiUrl
 import com.melihkarakilinc.moviesapplication.Category
 import com.melihkarakilinc.moviesapplication.MovieModel
-import retrofit2.Response
+import com.melihkarakilinc.moviesapplication.Utils.ApiUrl
 import retrofit2.http.GET
 import retrofit2.http.Query
 

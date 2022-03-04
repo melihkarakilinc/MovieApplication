@@ -5,9 +5,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
-import coil.transform.CircleCropTransformation
-import com.melihkarakilinc.moviesapplication.R
 import com.melihkarakilinc.moviesapplication.Result
 import com.melihkarakilinc.moviesapplication.Utils.ItemListener
 import com.melihkarakilinc.moviesapplication.Utils.Util

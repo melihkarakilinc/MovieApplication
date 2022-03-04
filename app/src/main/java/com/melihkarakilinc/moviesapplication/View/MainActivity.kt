@@ -3,7 +3,6 @@ package com.melihkarakilinc.moviesapplication.View
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -16,7 +15,6 @@ import com.melihkarakilinc.moviesapplication.ViewModel.MainViewModel
 import com.melihkarakilinc.moviesapplication.databinding.ActivityMainBinding
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -45,11 +43,6 @@ class MainActivity : AppCompatActivity() {
 
             override fun onPageSelected(position: Int) {
                 binding.actionbar.txtGenre.text = category.genres!![position].name
-                Toast.makeText(
-                    this@MainActivity,
-                    position.toString(),
-                    Toast.LENGTH_SHORT
-                ).show()
             }
         })
         detailOnPageChangeListener.getCurrentPage()
@@ -66,9 +59,9 @@ class MainActivity : AppCompatActivity() {
                         category = it.data!!
                         adapter = ViewPagerAdapter(
                             supportFragmentManager,
-                            it.data!!.genres!!.size,
+                            it.data.genres!!.size,
                             this@MainActivity,
-                            it.data!!
+                            it.data
                         )
                         binding.viewPager.adapter = adapter
                     }
