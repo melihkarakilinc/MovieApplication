@@ -2,7 +2,6 @@ package com.melihkarakilinc.moviesapplication.View
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +20,8 @@ import com.melihkarakilinc.moviesapplication.databinding.FragmentAllCategoryBind
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class AllCategoryFragment constructor(genre: Genre, context: Context) : Fragment(),ItemListener {
+class AllCategoryFragment constructor(genre: Genre, context: Context) : Fragment(), ItemListener {
+
     private var genre: Genre = genre
     private lateinit var viewModel: MainViewModel
     private var _binding: FragmentAllCategoryBinding? = null
@@ -29,6 +29,7 @@ class AllCategoryFragment constructor(genre: Genre, context: Context) : Fragment
     private val adapter = MoviesAdapter()
     private var movieList = ArrayList<Result>()
     private lateinit var staggeredGridLayoutManager: StaggeredGridLayoutManager
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,16 +52,15 @@ class AllCategoryFragment constructor(genre: Genre, context: Context) : Fragment
             viewModel.movieState.collect {
                 when (it.status) {
                     Status.LOADING -> {
-                        //Show Progressbar
-                        binding.progressBar.visibility=View.VISIBLE
+                        binding.progressBar.visibility = View.VISIBLE
                     }
                     Status.SUCCESS -> {
                         movieList.addAll(it.data?.results!!)
                         adapter.movieList(movieList, this@AllCategoryFragment)
-                        binding.progressBar.visibility=View.GONE
+                        binding.progressBar.visibility = View.GONE
                     }
                     else -> {
-                        Log.e("MainActivity", it.message.toString())
+                        binding.progressBar.visibility = View.VISIBLE
                     }
                 }
             }
@@ -68,6 +68,6 @@ class AllCategoryFragment constructor(genre: Genre, context: Context) : Fragment
     }
 
     override fun OnItemSelect(result: Result) {
-        TODO("Not yet implemented")
+        Toast.makeText(requireContext(), "Click", Toast.LENGTH_SHORT).show()
     }
 }

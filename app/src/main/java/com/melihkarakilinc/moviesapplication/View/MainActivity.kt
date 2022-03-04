@@ -2,11 +2,16 @@ package com.melihkarakilinc.moviesapplication.View
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.viewpager.widget.ViewPager
 import com.melihkarakilinc.moviesapplication.Adapter.ViewPagerAdapter
+import com.melihkarakilinc.moviesapplication.Category
 import com.melihkarakilinc.moviesapplication.Status
+import com.melihkarakilinc.moviesapplication.Utils.DetailOnPageChangeListener
 import com.melihkarakilinc.moviesapplication.ViewModel.MainViewModel
 import com.melihkarakilinc.moviesapplication.databinding.ActivityMainBinding
 import kotlinx.coroutines.flow.collect
@@ -17,7 +22,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
     private var adapter: ViewPagerAdapter? = null
-    private var genreName = ArrayList<String>()
+    private val detailOnPageChangeListener = DetailOnPageChangeListener()
+    private var category= Category()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,17 +33,35 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.getCategory()
 
+        binding.viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {}
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+            }
+
+            override fun onPageSelected(position: Int) {
+                binding.actionbar.txtGenre.text = category.genres!![position].name
+                Toast.makeText(
+                    this@MainActivity,
+                    position.toString(),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+        detailOnPageChangeListener.getCurrentPage()
         lifecycleScope.launch {
             viewModel.categoryState.collect {
 
                 when (it.status) {
                     Status.LOADING -> {
-                        //Show Progressbar
                         Log.e("MainActivity", "LOADING")
                     }
-
                     Status.SUCCESS -> {
-                        Log.e("MainActivity", "SUCCESS{${it.data!!.genres}}")
+                        binding.actionbar.txtGenre.text = it.data?.genres?.get(0)?.name ?: "Category"
+                        category = it.data!!
                         adapter = ViewPagerAdapter(
                             supportFragmentManager,
                             it.data!!.genres!!.size,
@@ -46,9 +70,8 @@ class MainActivity : AppCompatActivity() {
                         )
                         binding.viewPager.adapter = adapter
                     }
-
                     else -> {
-                        Log.e("MainActivity", it.message.toString())
+                        binding.mainProgressbar.visibility = View.VISIBLE
                     }
                 }
             }
